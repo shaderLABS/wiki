@@ -1,0 +1,20 @@
+[Unit]
+Description=MariaDB container
+After=network-online.target
+StartLimitInterval=10
+StartLimitBurst=5
+
+[Container]
+Image=docker.io/mariadb
+Network=wiki.network
+Volume=%h/production/wiki/mariadb/data:/var/lib/mysql:Z
+EnvironmentFile=%h/production/wiki/mariadb/mariadb.env
+UserNS=keep-id:uid=999,gid=999
+AutoUpdate=registry
+
+[Service]
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=mediawiki.service

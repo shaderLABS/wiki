@@ -1,0 +1,11 @@
+/* Hide e-mail notification settings as they are not used */
+#mw-input-wpecho-subscriptions table tr td:last-child,
+#mw-input-wpecho-subscriptions table tr th:last-child,
+#mw-prefsection-echo .mw-prefs-fieldset-wrapper:first-child {
+    display: none;
+}
+
+/* Fix padding after removed e-mail notification settings */
+#mw-prefsection-echo .mw-prefs-fieldset-wrapper:nth-child(2) {
+    padding-top: 0;
+}

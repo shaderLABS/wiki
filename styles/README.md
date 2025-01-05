@@ -1,0 +1,2 @@
+- Create `MediaWiki:Common.css` and paste the content of `Common.css` into it.
+- Create `MediaWiki:Citizen.css` and paste the content of `Citizen.css` into it.

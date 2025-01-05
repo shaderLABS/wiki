@@ -1,0 +1,48 @@
+# FROM docker.io/mediawiki:1.43-fpm
+FROM shaderlabs/mediawiki-base:1.43-fpm
+
+RUN apt-get update && apt-get install -y \
+    libzip-dev zip \
+    && docker-php-ext-install zip
+
+COPY --from=docker.io/composer/composer:2-bin /composer /usr/bin/composer
+
+##########################
+### EXTENSIONS & SKINS ###
+##########################
+
+RUN for ext in Description2 Widgets PluggableAuth WSOAuth Realnames UserMerge; do \
+    git clone -b REL1_43 --depth 1 https://gerrit.wikimedia.org/r/mediawiki/extensions/$ext /var/www/html/extensions/$ext; \
+    composer install --no-dev --working-dir=/var/www/html/extensions/$ext; \
+    done
+
+RUN git clone --depth 1 https://github.com/Kneemund/mediawiki-discord-oauth /var/www/html/extensions/DiscordOAuth \
+    && composer install --no-dev --working-dir=/var/www/html/extensions/DiscordOAuth
+
+RUN git clone --depth 1 https://github.com/Kneemund/mw-discord /var/www/html/extensions/Discord
+
+# TODO: change to REL1_43 when available
+RUN git clone -b main --depth 1 https://github.com/StarCitizenTools/mediawiki-skins-Citizen.git /var/www/html/skins/Citizen
+
+#####################
+### CONFIGURATION ###
+#####################
+
+# setup compiled_templates for Widgets extension
+RUN chown -R www-data:www-data /var/www/html/extensions/Widgets/compiled_templates
+
+###########################
+### NGINX & SUPERVISORD ###
+###########################
+
+RUN apt-get install -y nginx supervisor \
+    && rm /etc/nginx/sites-enabled/default
+
+COPY resources/nginx/wiki.conf /etc/nginx/sites-enabled/wiki.conf
+COPY resources/robots.txt /var/www/html/robots.txt
+
+COPY resources/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 80
+
+CMD ["/usr/bin/supervisord"]

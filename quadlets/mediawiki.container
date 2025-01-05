@@ -1,0 +1,16 @@
+[Unit]
+Description=Mediawiki container
+After=network-online.target
+StartLimitInterval=10
+StartLimitBurst=5
+
+[Container]
+Image=shaderlabs/wiki
+Network=wiki.network
+Volume=%h/production/wiki/mediawiki/images:/var/www/html/images:Z
+Volume=%h/production/wiki/mediawiki/LocalSettings.php:/var/www/html/LocalSettings.php:Z,ro
+PublishPort=127.0.0.1:8080:80
+
+[Service]
+Restart=always
+RestartSec=30
