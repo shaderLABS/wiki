@@ -1,5 +1,4 @@
-# FROM docker.io/mediawiki:1.43-fpm
-FROM shaderlabs/mediawiki-base:1.43-fpm
+FROM docker.io/mediawiki:1.43-fpm
 
 RUN apt-get update && apt-get install -y \
     libzip-dev zip \
