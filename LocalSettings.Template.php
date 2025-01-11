@@ -154,6 +154,12 @@ wfLoadExtension("VisualEditor");
 wfLoadExtension("Widgets");
 wfLoadExtension("WikiEditor");
 
+wfLoadExtension("TextExtracts");
+wfLoadExtension("PageImages");
+wfLoadExtension("Popups");
+$wgPopupsHideOptInOnPreferencesPage = true;
+$wgPopupsReferencePreviewsBetaFeature = false;
+
 wfLoadExtension("Description2");
 $wgEnableMetaDescriptionFunctions = true;
 
