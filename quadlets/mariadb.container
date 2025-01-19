@@ -6,7 +6,7 @@ StartLimitBurst=5
 
 [Container]
 Image=docker.io/mariadb
-Network=wiki.network
+Network=mariadb.network
 Volume=%h/production/wiki/mariadb/data:/var/lib/mysql:Z
 EnvironmentFile=%h/production/wiki/mariadb/mariadb.env
 UserNS=keep-id:uid=999,gid=999

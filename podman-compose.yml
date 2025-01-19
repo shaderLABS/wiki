@@ -3,11 +3,11 @@ services:
     mariadb:
         image: docker.io/mariadb
         networks:
-            - wiki_network
+            - mariadb_network
         volumes:
-            - ~/production/wiki/mariadb/data:/var/lib/mysql:Z
+            - $HOME/production/wiki/mariadb/data:/var/lib/mysql:Z
         env_file:
-            - ~/production/wiki/mariadb/mariadb.env
+            - $HOME/production/wiki/mariadb/mariadb.env
         userns_mode: "keep-id:uid=999,gid=999"
         restart: always
         labels:
@@ -16,10 +16,11 @@ services:
     mediawiki:
         image: shaderlabs/wiki
         networks:
-            - wiki_network
+            - mariadb_network
+            - mediawiki_network
         volumes:
-            - ~/production/wiki/mediawiki/images:/var/www/html/images:Z
-            - ~/production/wiki/mediawiki/LocalSettings.php:/var/www/html/LocalSettings.php:Z,ro
+            - $HOME/production/wiki/mediawiki/images:/var/www/html/images:Z
+            - $HOME/production/wiki/mediawiki/LocalSettings.php:/var/www/html/LocalSettings.php:Z,ro
         ports:
             - "127.0.0.1:8080:80"
         restart: always
@@ -27,6 +28,9 @@ services:
             - mariadb
 
 networks:
-    wiki_network:
+    mariadb_network:
         driver: bridge
         internal: true
+    mediawiki_network:
+        driver: bridge
+        internal: false
