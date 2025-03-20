@@ -16,7 +16,7 @@ All folders must be created before running the containers.
 - `~/production/wiki/mediawiki/images`
     - Directory where the images are stored.
     - The user/group `www-data` (33) must have write permissions to this directory to enable file uploads.
-    This can be achieved by running `podman unshare chown 33:33 ~/production/wiki/mediawiki/images`.
+    This can be achieved by running `podman unshare chown -R 33:33 ~/production/wiki/mediawiki/images`.
 - `~/production/wiki/mediawiki/LocalSettings.php`
     - Configuration file.
     - Mounted as read-only.

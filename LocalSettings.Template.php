@@ -176,6 +176,21 @@ $wgRealnamesLinkStyle = "replace";
 wfLoadExtension("UserMerge");
 $wgGroupPermissions["bureaucrat"]["usermerge"] = true;
 
+wfLoadExtension("Scribunto");
+$wgScribuntoDefaultEngine = "luasandbox";
+
+wfLoadExtension("ExternalData");
+$wgExternalDataSources["*"]["allowed urls"] = "none";
+$wgExternalDataSources["modrinth"] = [
+    "url" => 'https://api.modrinth.com/v2/project/$slug$/version',
+    "allowed urls" => "https://api.modrinth.com",
+    "params" => ["slug"],
+    "param filters" => ["slug" => "/^([A-Za-z0-9]*)/"],
+    "format" => "JSON",
+    "throttle interval" => 0.2,
+    "always use stale cache" => true,
+];
+
 #### Begin Authentification ####
 
 wfLoadExtension("PluggableAuth");
