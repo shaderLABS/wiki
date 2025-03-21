@@ -14,7 +14,7 @@ services:
             - "io.containers.autoupdate=registry"
 
     mediawiki:
-        image: shaderlabs/wiki
+        image: ghcr.io/shaderlabs/wiki
         networks:
             - mariadb_network
             - mediawiki_network
