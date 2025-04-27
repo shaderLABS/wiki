@@ -21,27 +21,22 @@ jobs:
     build:
         runs-on: ubuntu-24.04
         steps:
-            - name: Install Buildx
-              uses: docker/setup-buildx-action@v3
-            - name: Login to GHCR
-              uses: docker/login-action@v3
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Build
+              id: build_image
+              uses: redhat-actions/buildah-build@v2
               with:
+                image: ${{ env.REGISTRY }}/${{ github.repository }}
+                containerfiles: |
+                  container/Containerfile
+                build-args: |
+                  --squash-all
+            - name: Push To GHCR
+              uses: redhat-actions/push-to-registry@v2
+              with:
+                  image: ${{ steps.build_image.outputs.image }}
+                  tags: ${{ steps.build_image.outputs.tags }}
                   registry: ${{ env.REGISTRY }}
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
-            - name: Extract Metadata
-              id: meta
-              uses: docker/metadata-action@v5
-              with:
-                  images: ${{ env.REGISTRY }}/${{ github.repository }}
-                  flavor: latest=true
-            - name: Build & Push
-              uses: docker/build-push-action@v6
-              with:
-                  context: "{{defaultContext}}:container"
-                  file: Containerfile
-                  platforms: linux/amd64
-                  push: true
-                  tags: ${{ steps.meta.outputs.tags }}
-                  labels: ${{ steps.meta.outputs.labels }}
-                  annotations: ${{ steps.meta.outputs.annotations }}
