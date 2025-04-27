@@ -28,8 +28,8 @@ jobs:
               uses: redhat-actions/buildah-build@v2
               with:
                 image: ${{ env.REGISTRY }}/${{ github.repository }}
-                containerfiles: |
-                  container/Containerfile
+                context: container
+                containerfiles: Containerfile
                 build-args: |
                   --squash-all
             - name: Push To GHCR
