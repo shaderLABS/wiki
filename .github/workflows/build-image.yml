@@ -29,7 +29,7 @@ jobs:
               with:
                 image: ${{ env.REGISTRY }}/${{ github.repository }}
                 context: container
-                containerfiles: Containerfile
+                containerfiles: container/Containerfile
                 build-args: |
                   --squash-all
             - name: Push To GHCR
