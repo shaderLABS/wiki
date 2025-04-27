@@ -25,7 +25,7 @@ RUN git clone --depth 1 https://github.com/Kneemund/mediawiki-discord-oauth /var
 RUN git clone --depth 1 https://github.com/Kneemund/mw-discord /var/www/html/extensions/Discord
 
 # TODO: change to REL1_43 when available
-RUN git clone -b main --depth 1 https://github.com/StarCitizenTools/mediawiki-skins-Citizen.git /var/www/html/skins/Citizen
+RUN git clone -b v3.0.0 --depth 1 https://github.com/StarCitizenTools/mediawiki-skins-Citizen.git /var/www/html/skins/Citizen
 
 RUN composer install --no-dev
 
