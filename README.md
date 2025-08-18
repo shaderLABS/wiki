@@ -32,12 +32,13 @@ All folders must be created before running the containers.
         MYSQL_USER=mediawiki
         MYSQL_PASSWORD=[PW]
         MYSQL_ROOT_PASSWORD=[PW]
+        MARIADB_AUTO_UPGRADE=1
         ```
 # Start
 
 ```sh
-systemctl --user enable --now mariadb
-systemctl --user enable --now mediawiki
+systemctl --user start mariadb
+systemctl --user start mediawiki
 ```
 
 # Various Commands
