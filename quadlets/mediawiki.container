@@ -1,11 +1,13 @@
 [Unit]
 Description=Mediawiki container
-After=network-online.target
+After=mariadb.container
+Requires=mariadb.container
 StartLimitInterval=10
 StartLimitBurst=5
 
 [Container]
 Image=ghcr.io/shaderlabs/wiki
+AutoUpdate=registry
 Network=mariadb.network
 Network=mediawiki.network
 Volume=%h/production/wiki/mediawiki/images:/var/www/html/images:Z
@@ -15,3 +17,6 @@ PublishPort=127.0.0.1:8080:80
 [Service]
 Restart=always
 RestartSec=30
+
+[Install]
+WantedBy=default.target
