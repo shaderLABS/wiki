@@ -14,3 +14,6 @@ UserNS=keep-id:uid=999,gid=999
 [Service]
 Restart=always
 RestartSec=30
+
+[Install]
+WantedBy=mediawiki.service
