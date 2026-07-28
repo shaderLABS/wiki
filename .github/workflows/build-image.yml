@@ -19,21 +19,19 @@ concurrency:
 
 jobs:
     build:
-        runs-on: ubuntu-24.04
+        runs-on: ubuntu-26.04
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
             - name: Build
               id: build_image
-              uses: redhat-actions/buildah-build@v2
+              uses: redhat-actions/buildah-build@v3
               with:
                 image: ${{ env.REGISTRY }}/${{ github.repository }}
                 context: container
                 containerfiles: container/Containerfile
-                build-args: |
-                  --squash-all
             - name: Push To GHCR
-              uses: redhat-actions/push-to-registry@v2
+              uses: redhat-actions/push-to-registry@v3
               with:
                   image: ${{ steps.build_image.outputs.image }}
                   tags: ${{ steps.build_image.outputs.tags }}
