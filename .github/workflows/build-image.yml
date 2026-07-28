@@ -27,7 +27,7 @@ jobs:
               id: build_image
               uses: redhat-actions/buildah-build@v3
               with:
-                image: ${{ env.REGISTRY }}/${{ github.repository }}
+                image: ${{ github.repository }}
                 context: container
                 containerfiles: container/Containerfile
             - name: Push To GHCR
