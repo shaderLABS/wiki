@@ -17,7 +17,8 @@ COPY --from=docker.io/composer/composer:2-bin /composer /usr/bin/composer
 COPY resources/composer.local.json /var/www/html/composer.local.json
 
 RUN for ext in Description2 Widgets PluggableAuth WSOAuth Realnames UserMerge Popups ExternalData; do \
-    git clone -b REL1_43 --depth 1 https://gerrit.wikimedia.org/r/mediawiki/extensions/$ext /var/www/html/extensions/$ext; \
+    # https://gerrit.wikimedia.org/r/mediawiki/extensions/$ext
+    git clone -b REL1_43 --depth 1 https://github.com/wikimedia/mediawiki-extensions-$ext /var/www/html/extensions/$ext; \
     done
 
 RUN git clone --depth 1 https://github.com/Kneemund/mediawiki-discord-oauth /var/www/html/extensions/DiscordOAuth && \
