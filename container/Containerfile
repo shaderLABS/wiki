@@ -23,7 +23,7 @@ RUN for ext in Description2 Widgets PluggableAuth WSOAuth Realnames UserMerge Po
 
 RUN git clone --depth 1 https://github.com/Kneemund/mediawiki-discord-oauth /var/www/html/extensions/DiscordOAuth && \
     git clone --depth 1 https://github.com/Kneemund/mw-discord /var/www/html/extensions/Discord && \
-    git clone --depth 1 -b v3.24.0 https://github.com/StarCitizenTools/mediawiki-skins-Citizen.git /var/www/html/skins/Citizen
+    git clone --depth 1 -b v3.25.1 https://github.com/StarCitizenTools/mediawiki-skins-Citizen.git /var/www/html/skins/Citizen
 
 RUN composer install --no-dev
 
